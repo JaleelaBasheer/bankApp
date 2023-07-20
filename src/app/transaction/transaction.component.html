@@ -1,0 +1,88 @@
+<!-- header -->
+
+<!-- header -->
+<header>
+  <nav class="navbar navbar-expand-lg " style="background-color: black;">
+      <div class="container-fluid">
+        <a class="navbar-brand" routerLink="" ><i class="fa-solid fa-building-columns"></i>Union Bank</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            
+            <li class="nav-item dropdown">
+              <a class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-gear "></i>
+               Setting
+              </a>
+              <ul class="dropdown-menu" style="background-color: black;">
+                <li><a class="dropdown-item" (click)="logout()">Sign out</a></li>
+                
+              </ul>
+            </li>
+            
+          </ul>
+          
+        </div>
+      </div>
+    </nav>
+</header>
+<!-- --------------------------------------- -->
+
+<div class="container">
+    <h2 class="text-primary mt-5">Mini Statement</h2>
+    <p class="m-2"
+    style="text-align:justify;">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugiat neque sed eius doloribus nemo tempora mollitia dolor ipsam repudiandae officiis similique ipsum provident quia, non facilis inventore accusantium necessitatibus ullam?Lorem ipsum dolor sit amet consectetur, adipisicing elit. Deleniti provident consectetur modi pariatur repellat, rerum beatae sit fuga, sequi, iste omnis eligendi culpa ipsam distinctio enim. Quasi vero distinctio explicabo?</p>
+    <div class="table  mt-3">
+      <div class="row mt-5">
+        <div class="col-3">
+          <h4 style="color: green;">All Transactions</h4>
+        </div>
+        <div class="col-6">
+          <label>Search By:</label>
+          <input  type="text" class="form-control" placeholder="Transaction Type"   [(ngModel)]="searchKey">
+        </div>
+
+        
+        <div class="col-3 text-center">
+          <button class="btn" style="width: 80px;background-color: green;color: aliceblue;" (click)="generatePDF()">Export</button>
+        </div>
+      </div>
+              <!-- Not Found -->
+
+              <div *ngIf="(allTransactions | search:searchKey:'transaction_type').length==0">
+                <p class="fw-bolder text-center text-danger">Search not found</p>
+              </div>
+      
+
+      <table class="table table-dark table-striped mt-5"id="transactionHistory">
+        <thead>
+          <tr>
+            <th scope="col">No</th>
+            <th scope="col">Transaction Type</th>
+            <th scope="col">From Account</th>
+            <th scope="col">To account</th>
+            <th scope="col">Amount</th>
+
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let transaction of allTransactions | search:searchKey:'transaction_type'  let i=index"  >
+            <th scope="row">{{i+1}}</th>
+            <td>{{transaction.transaction_type}}</td>
+            <td>{{transaction.fromAcno}}</td>
+            <td>{{transaction.toAcno}}</td>
+            <td>{{transaction.amount}}</td>
+            
+
+        
+
+          </tr>
+          
+        </tbody>
+      </table>
+    </div>
+
+</div>
+<app-footer></app-footer>
